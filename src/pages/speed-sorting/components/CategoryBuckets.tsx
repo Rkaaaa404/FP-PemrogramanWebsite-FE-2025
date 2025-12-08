@@ -1,3 +1,4 @@
+import { Check, X } from "lucide-react";
 import type { Category, DropFeedback } from "../hooks/useSpeedSortingGame";
 
 interface CategoryBucketsProps {
@@ -48,6 +49,20 @@ export function CategoryBuckets({
           `}
         >
           <div className="absolute inset-0 pointer-events-none bg-[radial-gradient(circle_at_20%_20%,rgba(59,130,246,0.15),transparent_50%),radial-gradient(circle_at_80%_30%,rgba(16,185,129,0.12),transparent_45%)]" />
+          {dropFeedback?.categoryId === category.id && (
+            <div className="absolute inset-0 flex items-center justify-center pointer-events-none animate-pulse">
+              <div
+                className={`flex items-center justify-center rounded-full h-14 w-14 sm:h-16 sm:w-16 lg:h-20 lg:w-20 shadow-2xl border-4 backdrop-blur-md transition-all duration-200
+                  ${dropFeedback.isCorrect ? "bg-emerald-400/90 border-white/90 text-white" : "bg-rose-400/90 border-white/90 text-white"}`}
+              >
+                {dropFeedback.isCorrect ? (
+                  <Check className="w-8 h-8 sm:w-10 sm:h-10 stroke-[3]" />
+                ) : (
+                  <X className="w-8 h-8 sm:w-10 sm:h-10 stroke-[3]" />
+                )}
+              </div>
+            </div>
+          )}
           {category.name}
         </div>
       ))}

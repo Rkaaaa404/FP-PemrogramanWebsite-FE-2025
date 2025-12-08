@@ -34,12 +34,13 @@ export function WordCardsAnimation({
     const measure = () => {
       const el = trackRef.current;
       if (!el) return;
-      const width = el.scrollWidth / 2;
-      const safeWidth = width || 1;
-      setSingleWidth((prevWidth) => {
-        if (prevWidth === safeWidth) return prevWidth;
-        return safeWidth;
-      });
+      const childCount = el.childElementCount || 1;
+      const avgCardWidth = el.scrollWidth / childCount;
+      const sequenceWidth = (avgCardWidth || 0) * (words.length || 1); // full cycle width of unique words
+      const safeWidth = sequenceWidth || 1;
+      setSingleWidth((prevWidth) =>
+        prevWidth === safeWidth ? prevWidth : safeWidth,
+      );
       setOffset((prev) => {
         const widthVal = safeWidth;
         if (!widthVal) return prev;
@@ -50,9 +51,16 @@ export function WordCardsAnimation({
       if (containerEl) setContainerWidth(containerEl.clientWidth || 0);
     };
 
-    measure();
+    const resizeObserver = new ResizeObserver(() => measure());
+    if (containerRef.current) resizeObserver.observe(containerRef.current);
     window.addEventListener("resize", measure);
-    return () => window.removeEventListener("resize", measure);
+    document.addEventListener("fullscreenchange", measure);
+    measure();
+    return () => {
+      resizeObserver.disconnect();
+      window.removeEventListener("resize", measure);
+      document.removeEventListener("fullscreenchange", measure);
+    };
   }, [words.length]);
 
   useEffect(() => {
