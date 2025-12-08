@@ -6,6 +6,8 @@ export interface WordItem {
   text: string;
   correctCategory: string;
   completed?: boolean;
+  type: "text" | "image";
+  imageUrl?: string;
 }
 
 export interface Category {
@@ -101,8 +103,18 @@ const transformDataToGameFormat = (
       text: item.type === "text" ? item.value : `Image: ${item.id}`,
       correctCategory: correctCategoryId,
       completed: false,
+      type: item.type,
+      imageUrl:
+        item.type === "image"
+          ? `${import.meta.env.VITE_API_URL}/${item.value}`
+          : undefined,
     };
   });
+
+  for (let i = words.length - 1; i > 0; i -= 1) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [words[i], words[j]] = [words[j], words[i]];
+  }
 
   return { words, categories };
 };
@@ -132,7 +144,7 @@ export function useSpeedSortingGame(detail: SpeedSortingDetail | null = null) {
 
   const totalWords = words.length;
   const completedWords = words.filter((w) => w.completed).length;
-  const speed = totalWords <= 10 ? 5 : totalWords <= 20 ? 15 : 10;
+  const speed = 1.5;
 
   useEffect(() => {
     if (gameState !== "playing" || gameEnded) return;

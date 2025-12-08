@@ -13,7 +13,7 @@ export function StartScreen({
 }: StartScreenProps) {
   return (
     <div className="flex flex-col items-center justify-center py-8 sm:py-12 lg:py-20 space-y-6 sm:space-y-8 lg:space-y-10">
-      <h1 className="text-4xl sm:text-5xl lg:text-6xl text-gray-900 mb-2 sm:mb-4 max-w-md text-center px-4 font-bold">
+      <h1 className="text-4xl sm:text-5xl lg:text-6xl text-gray-900 mb-2 sm:mb-10 max-w-md text-center px-4 font-bold">
         Speed Sorting
       </h1>
       {thumbnailImage && (

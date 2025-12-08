@@ -192,7 +192,9 @@ export default function MyProjectsPage() {
                       size="sm"
                       className="h-7"
                       onClick={() => {
-                        navigate(`/quiz/play/${project.id}`);
+                        navigate(
+                          `/${project.game_template}/play/${project.id}`,
+                        );
                       }}
                     >
                       <Play />
