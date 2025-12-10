@@ -17,6 +17,8 @@ import EditAnagram from "./pages/anagram/EditAnagram";
 // 📌 TAMBAHAN 1: Import Komponen Game Pair or No Pair
 import PairOrNoPairGame from "./pages/pair-or-no-pair";
 import CreatePairOrNoPair from "./pages/pair-or-no-pair/create";
+import HangmanGame from "./pages/hangman";
+import CreateHangmanTemplate from "./pages/hangman/create";
 
 function App() {
   return (
@@ -28,6 +30,7 @@ function App() {
         <Route path="/sandbox" element={<Sandbox />} />
         <Route path="/quiz/play/:id" element={<Quiz />} />
         <Route path="/anagram/play/:id" element={<PlayAnagram />} />
+        <Route path="/hangman/play/:id" element={<HangmanGame />} />
         <Route
           path="/pair-or-no-pair/play/:gameId"
           element={<PairOrNoPairGame />}
@@ -42,6 +45,8 @@ function App() {
             path="/create-pair-or-no-pair"
             element={<CreatePairOrNoPair />}
           />
+          <Route path="/create-hangman" element={<CreateHangmanTemplate />} />
+          <Route path="/hangman/edit/:id" element={<CreateHangmanTemplate />} />
           <Route path="/quiz/edit/:id" element={<EditQuiz />} />
           <Route path="/create-anagram" element={<CreateAnagram />} />
           <Route path="/anagram/edit/:id" element={<EditAnagram />} />
