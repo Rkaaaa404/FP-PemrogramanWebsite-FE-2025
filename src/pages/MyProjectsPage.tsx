@@ -47,9 +47,8 @@ export default function MyProjectsPage() {
         setLoading(true);
         const response = await api.get("/api/auth/me/game");
         setProjects(response.data.data);
-      } catch (err) {
+      } catch {
         setError("Failed to fetch projects. Please try again later.");
-        console.error(err);
       } finally {
         setLoading(false);
       }
@@ -62,8 +61,7 @@ export default function MyProjectsPage() {
       await api.delete(`/api/game/game-type/quiz/${projectId}`);
       setProjects((prev) => prev.filter((p) => p.id !== projectId));
       toast.success("Project deleted successfully!");
-    } catch (err) {
-      console.error("Failed to delete project:", err);
+    } catch {
       toast.error("Failed to delete project. Please try again.");
     }
   };
@@ -84,8 +82,7 @@ export default function MyProjectsPage() {
       toast.success(
         isPublish ? "Published successfully" : "Unpublished successfully",
       );
-    } catch (err) {
-      console.error("Failed to update publish status:", err);
+    } catch {
       toast.error("Failed to update status. Please try again.");
     }
   };

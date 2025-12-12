@@ -291,8 +291,7 @@ function CreateMazeChase() {
     try {
       localStorage.setItem("mazeChase_draft", JSON.stringify(draftData));
       toast.success("Draft saved successfully!");
-    } catch (err) {
-      console.error("Failed to save draft:", err);
+    } catch {
       toast.error("Failed to save draft. Storage might be full.");
     }
   };
@@ -367,8 +366,7 @@ function CreateMazeChase() {
       await createMazeChaseGame(apiPayload);
       toast.success("Maze Chase game created successfully!");
       navigate("/create-projects");
-    } catch (err) {
-      console.error("Failed to create maze chase:", err);
+    } catch {
       toast.error("Failed to create maze chase game. Please try again.");
     }
   };
@@ -559,7 +557,7 @@ function CreateMazeChase() {
                                 {map.id !== "map_001" && (
                                   <div className="absolute inset-0 bg-black/70 flex items-center justify-center">
                                     <span className="text-gray-400 text-xs font-semibold bg-black/80 px-3 py-1 rounded-full border border-gray-600">
-                                      🔒 Coming Soon
+                                      Coming Soon
                                     </span>
                                   </div>
                                 )}
@@ -793,7 +791,7 @@ function CreateMazeChase() {
                   variant="p"
                   className="text-gray-900 font-bold text-base sm:text-lg"
                 >
-                  ⚙️
+                  Settings
                 </Typography>
               </div>
               <h3 className="font-gothic text-2xl sm:text-3xl text-[#c9a961] tracking-wide">

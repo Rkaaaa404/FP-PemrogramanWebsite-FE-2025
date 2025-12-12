@@ -192,7 +192,6 @@ function EditMazeChase() {
           setError(errorMessage);
         }
 
-        console.error(err);
         toast.error(errorMessage);
       } finally {
         setLoading(false);
@@ -448,8 +447,7 @@ function EditMazeChase() {
     try {
       localStorage.setItem("mazeChase_draft_edit", JSON.stringify(draftData));
       toast.success("Draft saved successfully!");
-    } catch (err) {
-      console.error("Failed to save draft:", err);
+    } catch {
       toast.error("Failed to save draft. Storage might be full.");
     }
   };
@@ -576,8 +574,7 @@ function EditMazeChase() {
       });
       toast.success("Maze Chase game updated successfully!");
       navigate("/my-projects");
-    } catch (err) {
-      console.error(err);
+    } catch {
       toast.error("Failed to update maze chase game");
     } finally {
       setLoading(false);
@@ -607,7 +604,6 @@ function EditMazeChase() {
         style={{ backgroundImage: `url(${backgroundImage})` }}
       >
         <div className="backdrop-blur-2xl bg-red-950/40 p-8 rounded-2xl shadow-2xl flex flex-col items-center border border-red-700/50 max-w-md">
-          <div className="text-5xl mb-4">⚠️</div>
           <h2 className="font-gothic text-2xl text-red-400 mb-4 text-center">
             Error Loading Game
           </h2>
@@ -808,7 +804,7 @@ function EditMazeChase() {
                                 {map.id !== "map_001" && (
                                   <div className="absolute inset-0 bg-black/70 flex items-center justify-center">
                                     <span className="text-gray-400 text-xs font-semibold bg-black/80 px-3 py-1 rounded-full border border-gray-600">
-                                      🔒 Coming Soon
+                                      Coming Soon
                                     </span>
                                   </div>
                                 )}
@@ -1047,9 +1043,7 @@ function EditMazeChase() {
                                   : "text-[#c9a961]"
                               }`}
                             >
-                              {q.answers[aIndex].isCorrect
-                                ? "✓ Correct"
-                                : "Correct"}
+                              Correct
                             </Label>
                           </div>
                         </RadioGroup>
@@ -1074,7 +1068,7 @@ function EditMazeChase() {
                   variant="p"
                   className="text-gray-900 font-bold text-base sm:text-lg"
                 >
-                  ⚙️
+                  Settings
                 </Typography>
               </div>
               <h3 className="font-gothic text-2xl sm:text-3xl text-[#c9a961] tracking-wide">

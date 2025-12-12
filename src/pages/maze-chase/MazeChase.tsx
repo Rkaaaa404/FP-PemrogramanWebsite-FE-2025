@@ -36,7 +36,6 @@ const Game = () => {
   const handleResume = useCallback(() => {
     setShowPauseDialog(false);
     setIsPaused(false);
-    // Focus back to iframe so game can receive input
     iframeRef.current?.focus();
   }, []);
 
@@ -46,13 +45,11 @@ const Game = () => {
     setStage("start");
     setHideButton(false);
     setGameOverReason("");
-    // Reload iframe to restart game
     if (iframeRef.current?.contentWindow) {
       iframeRef.current.contentWindow.location.reload();
     }
   }, []);
 
-  // Handle keyboard shortcut for pause (Escape key)
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
       if (e.key === "Escape" && stage === "maze") {
@@ -94,12 +91,10 @@ const Game = () => {
         `}
       </style>
 
-      {/* 1️⃣ Start Screen */}
       {stage === "start" && (
         <StartScreen hideButton={hideButton} onStart={handleStart} />
       )}
 
-      {/* 2️⃣ Zoom Animation */}
       {stage === "zoom" && (
         <div
           className="fixed top-0 left-0 w-screen h-screen bg-cover bg-center zoom-center"
@@ -109,10 +104,8 @@ const Game = () => {
         ></div>
       )}
 
-      {/* 3️⃣ Game Page with Godot */}
       {stage === "maze" && (
         <div className="w-screen h-screen relative maze-pop bg-black">
-          {/* Pause Button */}
           <div className="absolute top-4 right-6 z-50">
             <button
               onClick={handlePauseClick}
@@ -122,7 +115,6 @@ const Game = () => {
             </button>
           </div>
 
-          {/* Godot Game iframe */}
           <iframe
             ref={iframeRef}
             src="/maze-chase/godot/FP-Pemweb.html"
@@ -136,14 +128,12 @@ const Game = () => {
             title="Maze Chase Game"
           />
 
-          {/* Full overlay when paused to block all interactions */}
           {isPaused && (
             <div className="absolute inset-0 bg-black/40 z-30 backdrop-blur-sm" />
           )}
         </div>
       )}
 
-      {/* 4️⃣ Game Over Screen */}
       {stage === "gameover" && (
         <div
           className="w-screen h-screen bg-cover bg-center relative flex items-center justify-center"
@@ -174,7 +164,6 @@ const Game = () => {
         </div>
       )}
 
-      {/* Pause Dialog */}
       <PauseDialog
         isOpen={showPauseDialog}
         onClose={() => {
